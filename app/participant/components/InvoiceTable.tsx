@@ -29,10 +29,9 @@ export default function InvoiceTable() {
     );
   };
 
-  const handleDecline = (id: string, _reason: string) => {
-    setInvoiceList((prev) =>
-      prev.map((inv) => (inv.id === id ? { ...inv, status: 'Approved' as InvoiceStatus } : inv))
-    );
+  const handleDecline = (_id: string, _reason: string) => {
+    // In a real app this would send the query to the plan manager.
+    // The invoice stays as Pending until the plan manager resolves it.
   };
 
   const filtered = invoiceList.filter((inv) => filterStatus === 'All' || inv.status === filterStatus);
