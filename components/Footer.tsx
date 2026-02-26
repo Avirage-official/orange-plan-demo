@@ -11,10 +11,10 @@ export default function Footer() {
               Custom Platform Demonstration
             </p>
           </div>
-          <nav className="flex gap-6 text-sm text-gray-500">
-            <span className="hover:text-gray-700 cursor-default">Contact</span>
-            <span className="hover:text-gray-700 cursor-default">About</span>
-            <span className="hover:text-gray-700 cursor-default">NDIS Info</span>
+          <nav className="flex gap-6 text-sm text-gray-400">
+            <span>Contact</span>
+            <span>About</span>
+            <span>NDIS Info</span>
           </nav>
         </div>
         <div className="mt-8 border-t border-gray-100 pt-6 text-center text-xs text-gray-400">
