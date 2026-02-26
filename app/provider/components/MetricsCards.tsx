@@ -2,7 +2,7 @@
 
 import { DollarSign, Clock, Users, Bell } from 'lucide-react';
 import { providerInvoices } from '@/lib/mockData/providerInvoices';
-import { providerParticipants, pendingOnboarding } from '@/lib/mockData/providerParticipants';
+import { pendingOnboarding } from '@/lib/mockData/providerParticipants';
 import { providerMessages } from '@/lib/mockData/providerMessages';
 
 export default function MetricsCards() {
@@ -16,19 +16,14 @@ export default function MetricsCards() {
   ).length;
 
   const pendingInvoices = providerInvoices.filter(
-    (i) => i.status === 'Submitted'
+    (i) => i.status === 'Submitted' || i.status === 'Processing' || i.status === 'Approved'
   );
+  const pendingTotal = pendingInvoices.reduce((sum, i) => sum + i.amount, 0);
 
   const unreadMessages = providerMessages.filter((m) => !m.read);
 
-  const activeCount = providerParticipants.filter(
-    (p) => p.status === 'Active'
-  ).length;
   const parentApproval = pendingOnboarding.filter(
     (p) => p.status === 'Awaiting parent approval'
-  ).length;
-  const pendingOnboardingCount = pendingOnboarding.filter(
-    (p) => p.status !== 'Awaiting parent approval'
   ).length;
 
   return (
@@ -73,7 +68,7 @@ export default function MetricsCards() {
             {pendingInvoices.length} invoices
           </span>
         </div>
-        <p className="mt-4 text-3xl font-bold text-gray-900">$980</p>
+        <p className="mt-4 text-3xl font-bold text-gray-900">${pendingTotal.toLocaleString()}</p>
         <p className="mt-1 text-sm text-gray-500">Awaiting payment</p>
         <ul className="mt-4 space-y-1 text-sm text-gray-600">
           {pendingInvoices.map((inv) => (
@@ -100,18 +95,16 @@ export default function MetricsCards() {
             On Track
           </span>
         </div>
-        <p className="mt-4 text-3xl font-bold text-gray-900">
-          {providerParticipants.length}
-        </p>
+        <p className="mt-4 text-3xl font-bold text-gray-900">42</p>
         <p className="mt-1 text-sm text-gray-500">Current NDIS clients</p>
         <ul className="mt-4 space-y-1 text-sm text-gray-600">
           <li className="flex justify-between">
             <span>Active</span>
-            <span className="font-medium text-emerald-600">{activeCount}</span>
+            <span className="font-medium text-emerald-600">38</span>
           </li>
           <li className="flex justify-between">
             <span>Pending onboarding</span>
-            <span className="font-medium text-blue-600">{pendingOnboardingCount}</span>
+            <span className="font-medium text-blue-600">{pendingOnboarding.length}</span>
           </li>
           <li className="flex justify-between">
             <span>Pending parent approval</span>
@@ -145,8 +138,7 @@ export default function MetricsCards() {
           </p>
         )}
         <p className="mt-3 text-xs text-gray-400">
-          Also {pendingOnboarding.filter((p) => p.missingDocs.length > 0).length}{' '}
-          pending onboarding docs needed
+          Also 2 pending onboarding docs needed
         </p>
       </div>
     </div>
