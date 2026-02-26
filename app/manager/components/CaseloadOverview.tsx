@@ -3,37 +3,19 @@
 import { Users, FileText, AlertTriangle, UsersRound } from 'lucide-react';
 import { managerParticipants } from '@/lib/mockData/managerParticipants';
 import { managerInvoices } from '@/lib/mockData/managerInvoices';
-import { alerts } from '@/lib/mockData/alerts';
 import { teamMembers } from '@/lib/mockData/teamData';
 
 export default function CaseloadOverview() {
-  const activeCount = managerParticipants.filter(
-    (p) => p.planStatus === 'Active' || p.planStatus === 'New Onboarding'
-  ).length;
-  const onTrack = managerParticipants.filter(
-    (p) => p.budgetStatus === 'On Track'
-  ).length;
-  const monitoring = managerParticipants.filter(
-    (p) => p.budgetStatus === 'Monitor'
+  const activeCount = managerParticipants.length;
+  const steadyState = managerParticipants.filter(
+    (p) => p.planStatus === 'Active'
   ).length;
   const reviewDue = managerParticipants.filter(
     (p) => p.planStatus === 'Plan Review Due'
   ).length;
-
-  const pendingInvoices = managerInvoices.filter(
-    (i) => i.status !== 'Validated'
-  );
-  const flaggedCount = managerInvoices.filter(
-    (i) => i.status === 'Needs Review' || i.status === 'Budget Alert'
+  const newOnboarding = managerParticipants.filter(
+    (p) => p.planStatus === 'New Onboarding'
   ).length;
-  const duplicateCount = managerInvoices.filter(
-    (i) => i.status === 'Duplicate Detected'
-  ).length;
-
-  const alertCount = alerts.length;
-  const redAlerts = alerts.filter((a) => a.severity === 'red').length;
-  const orangeAlerts = alerts.filter((a) => a.severity === 'orange').length;
-  const yellowAlerts = alerts.filter((a) => a.severity === 'yellow').length;
 
   const onlineMembers = teamMembers.filter(
     (m) => m.status === 'Available'
@@ -55,16 +37,16 @@ export default function CaseloadOverview() {
         <p className="mt-1 text-sm text-gray-500">Active NDIS Plans</p>
         <ul className="mt-4 space-y-1 text-sm text-gray-600">
           <li className="flex justify-between">
-            <span>On Track</span>
-            <span className="font-medium text-emerald-600">{onTrack}</span>
+            <span>Steady state</span>
+            <span className="font-medium text-emerald-600">{steadyState}</span>
           </li>
           <li className="flex justify-between">
-            <span>Monitoring</span>
-            <span className="font-medium text-amber-600">{monitoring}</span>
+            <span>Plan reviews coming up</span>
+            <span className="font-medium text-amber-600">{reviewDue}</span>
           </li>
           <li className="flex justify-between">
-            <span>Review Due</span>
-            <span className="font-medium text-orange-600">{reviewDue}</span>
+            <span>New onboarding</span>
+            <span className="font-medium text-blue-600">{newOnboarding}</span>
           </li>
         </ul>
         <button className="mt-4 w-full rounded-lg bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors">
@@ -86,20 +68,24 @@ export default function CaseloadOverview() {
           {managerInvoices.length}
         </p>
         <p className="mt-1 text-sm text-gray-500">Invoices awaiting approval</p>
+        <p className="mt-1 text-xs text-gray-400">
+          Total amount: $
+          {managerInvoices
+            .reduce((sum, i) => sum + i.amount, 0)
+            .toLocaleString()}
+        </p>
         <ul className="mt-4 space-y-1 text-sm text-gray-600">
           <li className="flex justify-between">
-            <span>Validated (ready)</span>
+            <span>Ready to approve</span>
             <span className="font-medium text-emerald-600">
-              {managerInvoices.length - pendingInvoices.length}
+              {managerInvoices.filter((i) => i.status === 'Validated').length}
             </span>
           </li>
           <li className="flex justify-between">
-            <span>Flagged</span>
-            <span className="font-medium text-orange-600">{flaggedCount}</span>
-          </li>
-          <li className="flex justify-between">
-            <span>Duplicates</span>
-            <span className="font-medium text-red-600">{duplicateCount}</span>
+            <span>Need review</span>
+            <span className="font-medium text-orange-600">
+              {managerInvoices.filter((i) => i.status !== 'Validated').length}
+            </span>
           </li>
         </ul>
         <button className="mt-4 w-full rounded-lg bg-orange-500 px-3 py-2 text-sm font-medium text-white hover:bg-orange-600 transition-colors">
@@ -117,20 +103,20 @@ export default function CaseloadOverview() {
             Review Needed
           </span>
         </div>
-        <p className="mt-4 text-3xl font-bold text-gray-900">{alertCount}</p>
+        <p className="mt-4 text-3xl font-bold text-gray-900">3</p>
         <p className="mt-1 text-sm text-gray-500">Active alerts on caseload</p>
         <ul className="mt-4 space-y-1 text-sm text-gray-600">
           <li className="flex justify-between">
-            <span>🔴 Critical</span>
-            <span className="font-medium text-red-600">{redAlerts}</span>
+            <span>Over budget in category</span>
+            <span className="font-medium text-red-600">1</span>
           </li>
           <li className="flex justify-between">
-            <span>🟠 Warning</span>
-            <span className="font-medium text-orange-600">{orangeAlerts}</span>
+            <span>Duplicate invoice detected</span>
+            <span className="font-medium text-red-600">1</span>
           </li>
           <li className="flex justify-between">
-            <span>🟡 Info</span>
-            <span className="font-medium text-yellow-600">{yellowAlerts}</span>
+            <span>Pricing mismatch query</span>
+            <span className="font-medium text-orange-600">1</span>
           </li>
         </ul>
         <button className="mt-4 w-full rounded-lg bg-red-500 px-3 py-2 text-sm font-medium text-white hover:bg-red-600 transition-colors">
