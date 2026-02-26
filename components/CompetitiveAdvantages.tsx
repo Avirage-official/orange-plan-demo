@@ -7,11 +7,7 @@ const cards = [
   {
     icon: Zap,
     headline: 'Payment Speed That Matters',
-    stats: [
-      '98.2% of invoices processed within 1 business day',
-      '99.8% of payments made same-day or next-day',
-      '0% payment retries',
-    ],
+    stats: [],
     description:
       'Participants get continuity of care. Providers get predictable cash flow.',
   },

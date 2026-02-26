@@ -4,7 +4,7 @@ import InvoiceSubmissionForm from './components/InvoiceSubmissionForm';
 import ClientManagement from './components/ClientManagement';
 import MessagingHub from './components/MessagingHub';
 import PaymentHistory from './components/PaymentHistory';
-import StatsSection from './components/StatsSection';
+
 
 export default function ProviderPage() {
   return (
@@ -26,9 +26,6 @@ export default function ProviderPage() {
       </div>
       <div className="animate-[slideUp_0.4s_ease-out_0.5s_both]">
         <PaymentHistory />
-      </div>
-      <div className="animate-[slideUp_0.4s_ease-out_0.6s_both]">
-        <StatsSection />
       </div>
     </div>
   );
