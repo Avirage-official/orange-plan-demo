@@ -96,8 +96,11 @@ export default function PerformanceCharts() {
                 key={day.date}
                 className="group relative flex flex-1 flex-col items-center justify-end"
                 style={{ height: '100%' }}
+                tabIndex={0}
+                role="img"
+                aria-label={`${day.date}: ${day.count} invoices`}
               >
-                <div className="pointer-events-none absolute -top-8 left-1/2 z-10 hidden -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white group-hover:block">
+                <div className="pointer-events-none absolute -top-8 left-1/2 z-10 hidden -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white group-hover:block group-focus:block" role="tooltip">
                   {day.date}: {day.count}
                 </div>
                 <div
