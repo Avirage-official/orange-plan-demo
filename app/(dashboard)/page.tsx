@@ -3,8 +3,6 @@ import HeroSection from '@/components/HeroSection';
 import PortalShowcaseCards from '@/components/PortalShowcaseCards';
 import BenefitsSection from '@/components/BenefitsSection';
 import FeatureComparisonTable from '@/components/FeatureComparisonTable';
-import CompetitiveAdvantages from '@/components/CompetitiveAdvantages';
-
 import TechStackSection from '@/components/TechStackSection';
 import RoadmapSection from '@/components/RoadmapSection';
 import CTASection from '@/components/CTASection';
@@ -18,7 +16,6 @@ export default function HomePage() {
       <PortalShowcaseCards />
       <BenefitsSection />
       <FeatureComparisonTable />
-      <CompetitiveAdvantages />
 
       <TechStackSection />
       <RoadmapSection />
