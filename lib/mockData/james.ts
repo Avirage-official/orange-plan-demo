@@ -1,0 +1,17 @@
+export const participant = {
+  name: 'James Thompson',
+  age: 16,
+  disability: 'Physical Disability (Cerebral Palsy)',
+  planPeriod: '1 July 2025 – 30 June 2026',
+  planManager: 'Orange Plan Management',
+  primaryUser: 'Parents (Mum & Dad)',
+  totalBudget: 28500,
+  spent: 9850,
+  remaining: 18650,
+  percentSpent: 35,
+  percentRemaining: 65,
+  averageMonthlyBurn: 2150,
+  planStartDate: '2025-07-01',
+  planEndDate: '2026-06-30',
+  daysRemaining: 239,
+};
